@@ -1,4 +1,43 @@
-import { useState, type FormEvent } from 'react';
+        {fieldErrors.partnerType && (
+          <p className="mt-1 text-xs text-rose-300">{fieldErrors.partnerType}</p>
+        )}
+      </div>
+      <div>
+        <label htmlFor="partner-message" className={labelClass}>
+          How would you like to collaborate?
+        </label>
+        <textarea
+          id="partner-message"
+          rows={4}
+          placeholder="Tell us about your cohort, legal practice, or underwriting interest..."
+          value={message}
+          onChange={(e) => {
+            setMessage(e.target.value);
+            if (fieldErrors.message) setFieldErrors((p) => ({ ...p, message: '' }));
+          }}
+          aria-invalid={Boolean(fieldErrors.message)}
+          className={inputClass(fieldErrors.message)}
+        />
+        {fieldErrors.message && (
+          <p className="mt-1 text-xs text-rose-300">{fieldErrors.message}</p>
+        )}
+      </div>
+      <Button type="submit" size="lg" disabled={status === 'loading'} className="w-full sm:w-auto">
+        {status === 'loading' ? (
+          <>
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+            Sending inquiry…
+          </>
+        ) : (
+          <>
+            <Send className="h-4 w-4" aria-hidden="true" />
+            Send Partner Inquiry
+          </>
+        )}
+      </Button>
+    </form>
+  );
+}import { useState, type FormEvent } from 'react';
 import { CheckCircle2, AlertCircle, Loader2, Send } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { submitPartnerInquiry } from '../../lib/submissions';
