@@ -1,4 +1,43 @@
-import { useState, type FormEvent } from 'react';
+            name="sector"
+            value={sector}
+            onChange={(e) => {
+              setSector(e.target.value);
+              if (fieldErrors.sector) setFieldErrors((p) => ({ ...p, sector: '' }));
+            }}
+            aria-invalid={Boolean(fieldErrors.sector)}
+            className={inputClass(fieldErrors.sector)}
+          >
+            <option value="">Select sector</option>
+            {SECTOR_OPTIONS.map((opt) => (
+              <option key={opt} value={opt}>
+                {opt}
+              </option>
+            ))}
+          </select>
+          {fieldErrors.sector && (
+            <p className="mt-1 text-xs text-rose-300">{fieldErrors.sector}</p>
+          )}
+        </div>
+      </div>
+      <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
+        <Button type="submit" size="lg" disabled={status === 'loading'} className="w-full sm:w-auto">
+          {status === 'loading' ? (
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+              Joining waitlist…
+            </>
+          ) : (
+            <>
+              Join the Waitlist
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </>
+          )}
+        </Button>
+        <p className="text-xs text-[#f5efe2]/55">Pilot waitlist only — no payment required today.</p>
+      </div>
+    </form>
+  );
+}import { useState, type FormEvent } from 'react';
 import { CheckCircle2, AlertCircle, Loader2, ArrowRight } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { submitWaitlist } from '../../lib/submissions';
